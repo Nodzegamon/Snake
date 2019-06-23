@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 100px;
+}
+/* field будет наше поле действий, т е это квадрат 500 на 500*/
+.field{
+    width:500px;
+    height: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #cccccc;
+}
+/* excel это ячейки, из которых состоит поле. их будет 100*/
+.excel{
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
