@@ -20,3 +20,24 @@ body{
     height: 50px;
     padding: 5px;
 }
+
+/* тело нашей змеи*/
+.snakeBody{
+    background: url(snake.jpg);
+    background-size: cover; 
+    border-radius: 50%;
+}
+
+/* голова нашей змеи*/
+.head{
+    background: url(cat.jpg);
+    background-size: cover; 
+    border-radius: 10%;
+}
+
+/* для мыши*/
+.mouse{
+    background: url(mouse.jpg);
+    background-size: cover; 
+    
+}
