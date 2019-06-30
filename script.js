@@ -75,7 +75,22 @@ while(mouse.classList.contains('snakeBody')){
 }
 createMouse();
 
-//для того, чтобы змея двигалась вправо
+//для того, чтобы змея двигалась 
+
+let direction = 'right';
+let steps = false;
+
+let input = document.createElement('input');
+document.body.appendChild(input);
+input.style.cssText=`
+margin: auto;
+margin-top: 40px;
+font-size: 30px;
+display: block;
+`;
+
+let score=0;
+input.value='Ваши очки: ${score}';
 
 function move(){
     let snakeCoordinates=[snakeBody[0].getAttribute('posX'),snakeBody[0].getAttribute('posY')];//получили координаты головы
@@ -83,20 +98,99 @@ function move(){
     snakeBody[snakeBody.length-1].classList.remove('snakeBody');
     snakeBody.pop();//удаляем последний элемент
 
+if (direction=='right'){
+
     if(snakeCoordinates[0]<10){
         snakeBody.unshift(document.querySelector('[posX = "' + (+snakeCoordinates[0] + 1) + '"]
         [posY ="' + snakeCoordinates[1] + '"]));
     } else {
         snakeBody.unshift (document.querySelector('[posX="1"[posY="' + snakeCoordinates[1] + '"]'))//помешаем в соседню ячейку
     }
+}
+else if (direction=='left'){
 
-    
+    if(snakeCoordinates[0] > 1){
+        snakeBody.unshift(document.querySelector('[posX = "' + (+snakeCoordinates[0] - 1) + '"]
+        [posY ="' + snakeCoordinates[1] + '"]));
+    } else {
+        snakeBody.unshift (document.querySelector('[posX="10"[posY="' + snakeCoordinates[1] + '"]'))//помешаем в соседню ячейку
+    }
+}
+
+f (direction=='up'){
+
+    if(snakeCoordinates[1] < 10){
+        snakeBody.unshift(document.querySelector('[posX = "' + snakeCoordinates[0]  + '"]
+        [posY ="' + snakeCoordinates[1] + '"]));
+    } else {
+        snakeBody.unshift (document.querySelector('[posX="' + snakeCoordinates[0] + '"]
+        [posY ="1"]));
+             
+        ))//помешаем в соседню ячейку
+    }
+}
+else if (direction=='down'){
+    if(snakeCoordinates[1] > 1){
+        snakeBody.unshift(document.querySelector('[posX = "' + (+snakeCoordinates[0] + '"]
+        [posY ="' + (snakeCoordinates[1] - 1)+ '"]));
+    } else {
+        snakeBody.unshift (document.querySelector('[posX="' + snakeCoordinates[0] + '"]
+        [posY ="10"]));//помешаем в соседню ячейку
+    }
+}
+
+//поедание мышей
+if(snakeBody[0].getAttribute('posX') == mouse.getAttribute('posX') && 
+        snakeBody[0].getAttribute('posY') == mouse.getAttribute('posY'){
+            mouse.classList.remove('mouse');
+            let a=snakeBody[snakeBody.length-1].getAttribute['posX'];
+            let b=snakeBody[snakeBody.length-1].getAttribute['posY'];
+            snakeBody.push(document.querySelector('[posX = "' + a + '"][posX = "' + a + '"][posY = "' + b + '"]'));
+            createMouse();
+            score++;
+            input.value='Ваши очки: ${score}';
+        }
+)
+
+if(snakeBody[0].classList.contains('snakeBody')){
+        setTimeout( () => {
+            alert ('Game Over');
+          },200);
+    clearInterval(interval);
+    snakeBody[0].style.background= 'url(2.jpg) center no-repeat';
+    snakeBody[0].style.backgroundSize= "cover";
+}
 
     snakeBody[0].classList.add('head');
     for (let i=0; i< snakeBody.length;i++){
         snakeBody[i].classList.add('snakeBody');
     }
+
+    step=true;
 }
 
-//чтобы заработала каждые 300мс функция move
+//чтобы заработала каждые 300мс функция mov
 let iterval=setInterval(move,300);
+
+//зададим управление со стрелок
+
+window.addEventListener('keydown', function (e){
+        if (steps == true){
+            if(e.keyCode==37 && direction!='right') {
+                direction='left';
+                steps=false;
+            }
+            if(e.keyCode==38 && direction!='down') {
+                direction='up';
+                steps=false;
+            }
+            if(e.keyCode==39 && direction!='left') {
+                direction='right';
+                steps=false;
+            }
+            if(e.keyCode==40 && direction!='up') {
+                direction='down';
+                steps=false;
+        }     
+    }
+});
